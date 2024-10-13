@@ -12,7 +12,7 @@ const sizes = {
   height: window.innerHeight,
 };
 
-// create a mesh
+// create meshs
 
 // Square
 const square = new THREE.Mesh(
@@ -61,8 +61,13 @@ scene.add(square, torus, map, cone);
 // LIGHTS
 
 // ambient
-const ambient = new THREE.AmbientLight(0xffffff, 3);
+const ambient = new THREE.AmbientLight(0xffffff, 1);
 scene.add(ambient);
+
+// Directional
+const directional = new THREE.DirectionalLight(0x0000ff, 10);
+scene.add(directional);
+directional.position.set(1, 0.25, 0);
 
 // Create a camera
 const camera = new THREE.PerspectiveCamera(
@@ -72,7 +77,7 @@ const camera = new THREE.PerspectiveCamera(
   100
 );
 camera.position.setZ(4);
-camera.position.setY(1);
+camera.position.setY(0.5);
 scene.add(camera);
 
 //Controls

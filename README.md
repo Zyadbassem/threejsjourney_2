@@ -26,4 +26,21 @@ the ambient lights add light to every pixel of our mesh and you can control the 
 const ambient = new THREE.AmbientLight(0xffffff, 3);
 ```
 
-this way it will be brighter now let's move to the next color
+this way it will be brighter now let's move to the next light
+
+- Directional Light
+
+this light works like sun it has a direction and by defauld the direction is from the top
+
+```js
+const directional = new THREE.DirectionalLight(0xff0000, 1);
+scene.add(directional);
+```
+
+the two parameters are the intensity and the color and don't forget to lower the intensity of the ambient light so you can notice the directional one now lets change the direction of the directional light
+
+```js
+directional.position.set(1, 0.25, 0);
+```
+
+this will make the light to come from the right, feel free to play around
