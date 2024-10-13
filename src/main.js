@@ -84,6 +84,8 @@ spotLight.position.set(8, 5, 4);
 spotLight.lookAt(torus.position);
 scene.add(spotLight);
 scene.add(spotLight.target);
+const spotLightHelper = new THREE.SpotLightHelper(spotLight);
+scene.add(spotLightHelper);
 
 // Create a camera
 const camera = new THREE.PerspectiveCamera(

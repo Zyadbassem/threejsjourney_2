@@ -114,3 +114,14 @@ scene.add(spotLight.target);
 ```
 
 with this we finished our lights
+
+- helpers
+
+helpers help us locate our lights in the scene
+
+```js
+const spotLightHelper = new THREE.SpotLightHelper(spotLight);
+scene.add(spotLightHelper);
+```
+
+every type of light has a special helper and with this we finished our lesson
