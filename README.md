@@ -55,3 +55,27 @@ scene.add(hemisphere);
 ```
 
 comment the other lights so you can notice this one and let's move to the next color
+
+- Point Light
+
+this light works like a flash light and has tow parameters just like the ambient light
+
+```js
+const point = new THREE.PointLight(0x00ff00, 2);
+scene.add(point);
+pointLight.position.set(1, -0.5, 1);
+```
+
+we have two more parameters we can use distance which controls the distance which the intensity will lower after we pass it
+
+```js
+const point = new THREE.PointLight(0x00ff00, 2, 0.5);
+```
+
+and the next one is the decay, the lower the decay, the faster the light will decay.
+
+```js
+const point = new THREE.PointLight(0x00ff00, 2, 0, 0.5);
+```
+
+now let's move to the next light
