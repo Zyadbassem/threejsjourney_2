@@ -17,25 +17,25 @@ const sizes = {
 // Square
 const square = new THREE.Mesh(
   new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshBasicMaterial()
+  new THREE.MeshStandardMaterial()
 );
 
 // Cone
 const cone = new THREE.Mesh(
   new THREE.ConeGeometry(),
-  new THREE.MeshBasicMaterial()
+  new THREE.MeshStandardMaterial()
 );
 
 // Torus
 const torus = new THREE.Mesh(
   new THREE.TorusGeometry(),
-  new THREE.MeshBasicMaterial()
+  new THREE.MeshStandardMaterial()
 );
 
 // Plane
 const map = new THREE.Mesh(
   new THREE.PlaneGeometry(),
-  new THREE.MeshBasicMaterial({
+  new THREE.MeshStandardMaterial({
     side: THREE.DoubleSide,
   })
 );
@@ -57,6 +57,12 @@ cone.position.set(0, 1, 0);
 
 // Adding them to the scene
 scene.add(square, torus, map, cone);
+
+// LIGHTS
+
+// ambient
+const ambient = new THREE.AmbientLight(0xffffff, 3);
+scene.add(ambient);
 
 // Create a camera
 const camera = new THREE.PerspectiveCamera(
