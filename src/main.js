@@ -70,8 +70,20 @@ scene.add(square, torus, map, cone);
 // directional.position.set(1, 0.25, 0);
 
 // Hemisphere
-const rectArea = new THREE.RectAreaLight(0xff0000, 5, 4, 4);
-scene.add(rectArea);
+// const rectArea = new THREE.RectAreaLight(0xff0000, 5, 4, 4);
+// scene.add(rectArea);
+const spotLight = new THREE.SpotLight(
+  0x78ff00,
+  4.5,
+  10,
+  Math.PI * 0.1,
+  0.25,
+  1
+);
+spotLight.position.set(8, 5, 4);
+spotLight.lookAt(torus.position);
+scene.add(spotLight);
+scene.add(spotLight.target);
 
 // Create a camera
 const camera = new THREE.PerspectiveCamera(

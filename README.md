@@ -89,3 +89,28 @@ const rectArea = new THREE.RectAreaLight(0xff0000, 5, 4, 4);
 ```
 
 the last 2 parameters is the width and height of the rectangle
+
+- Spot Light
+  The SpotLight works like a flashlight. It's a cone of light starting at a point and oriented in a direction. Here the list of its parameters:  
+  color: the color  
+  intensity: the strength  
+  distance: the distance at which the intensity drops to 0  
+  angle: how large is the beam  
+  penumbra: how diffused is the contour of the beam
+  decay: how fast the light dims
+
+```js
+const spotLight = new THREE.SpotLight(
+  0x78ff00,
+  4.5,
+  10,
+  Math.PI * 0.1,
+  0.25,
+  1
+);
+spotLight.position.set(0, 2, 0);
+scene.add(spotLight);
+scene.add(spotLight.target);
+```
+
+with this we finished our lights
