@@ -43,4 +43,15 @@ the two parameters are the intensity and the color and don't forget to lower the
 directional.position.set(1, 0.25, 0);
 ```
 
-this will make the light to come from the right, feel free to play around
+this will make the light to come from the right, feel free to play around, now let's move to the next light
+
+- Hemisphere Light
+
+this light is just light the ambient light but it has to colors one comes from top and the other one comes from bottom
+
+```js
+const hemisphere = new THREE.HemisphereLight(0xff0000, 0x0000ff, 1);
+scene.add(hemisphere);
+```
+
+comment the other lights so you can notice this one and let's move to the next color

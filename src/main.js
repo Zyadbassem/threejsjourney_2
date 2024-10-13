@@ -60,14 +60,18 @@ scene.add(square, torus, map, cone);
 
 // LIGHTS
 
-// ambient
-const ambient = new THREE.AmbientLight(0xffffff, 1);
-scene.add(ambient);
+// // Ambient
+// const ambient = new THREE.AmbientLight(0xffffff, 1);
+// scene.add(ambient);
 
-// Directional
-const directional = new THREE.DirectionalLight(0x0000ff, 10);
-scene.add(directional);
-directional.position.set(1, 0.25, 0);
+// // Directional
+// const directional = new THREE.DirectionalLight(0x0000ff, 10);
+// scene.add(directional);
+// directional.position.set(1, 0.25, 0);
+
+// Hemisphere
+const hemisphere = new THREE.HemisphereLight(0xff0000, 0x0000ff, 1);
+scene.add(hemisphere);
 
 // Create a camera
 const camera = new THREE.PerspectiveCamera(
