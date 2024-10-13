@@ -79,3 +79,13 @@ const point = new THREE.PointLight(0x00ff00, 2, 0, 0.5);
 ```
 
 now let's move to the next light
+
+- RectAreaLight
+
+this light is like the directional light but its in the shape of rectangle
+
+```js
+const rectArea = new THREE.RectAreaLight(0xff0000, 5, 4, 4);
+```
+
+the last 2 parameters is the width and height of the rectangle

@@ -70,9 +70,9 @@ scene.add(square, torus, map, cone);
 // directional.position.set(1, 0.25, 0);
 
 // Hemisphere
-const point = new THREE.PointLight(0x00ff00, 10, 0, 2);
-scene.add(point);
-point.position.set(1, 1, 1);
+const rectArea = new THREE.RectAreaLight(0xff0000, 5, 4, 4);
+scene.add(rectArea);
+
 // Create a camera
 const camera = new THREE.PerspectiveCamera(
   75,
