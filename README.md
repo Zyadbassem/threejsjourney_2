@@ -8,4 +8,4 @@ in this chapter we will learn about lights, shadows and much more
 
 ## Shadows
 
-in this lesson we'll learn how shadows work
+in this lesson we'll learn how shadows work first you should have a plane as ground and a sphere and ambient light and a directional light so go ahead and do this then come back
