@@ -145,3 +145,33 @@ now we can hide the helper as we did before
 ```js
 spotLightCameraHelper.visible = false;
 ```
+
+### PointLight
+
+as we did with the directional and the spot light we will do the same with the pointLight
+
+```js
+const pointLight = new THREE.PointLight(0xffffff, 3);
+pointLight.castShadow = true;
+pointLight.position.set(1, 1, 0);
+scene.add(pointLight);
+
+// Helper
+const pointLightCameraHelper = new THREE.CameraHelper(pointLight.shadow.camera);
+scene.add(pointLightCameraHelper);
+```
+
+then we can edit our properties
+
+```js
+pointLight.shadow.mapSize.width = 1024;
+pointLight.shadow.mapSize.height = 1024;
+pointLight.shadow.camera.near = 0.1;
+pointLight.shadow.camera.far = 5;
+```
+
+now we can hide the helper
+
+```js
+pointLightCameraHelper.visible = false;
+```
