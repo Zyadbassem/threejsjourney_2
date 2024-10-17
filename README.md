@@ -66,3 +66,20 @@ directional.shadow.camera.far = 10;
 ```
 
 this way we will avoid any bugs
+
+### Amplitude
+
+now we can update the camera amplitude cause as you can see it's so huge
+
+```js
+directional.shadow.camera.top = 3;
+directional.shadow.camera.top = 3;
+directional.shadow.camera.bottom = -3;
+directional.shadow.camera.left = -3;
+```
+
+now we no longer need the camera helper
+
+```js
+directionalLightHelper.visible = false;
+```

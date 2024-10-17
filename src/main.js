@@ -59,13 +59,17 @@ directional.castShadow = true;
 directional.shadow.mapSize.width = 1024;
 directional.shadow.mapSize.height = 1024;
 directional.shadow.camera.far = 10;
+directional.shadow.camera.top = 3;
+directional.shadow.camera.top = 3;
+directional.shadow.camera.bottom = -3;
+directional.shadow.camera.left = -3;
 
 // Camera helper
 const directionalLightHelper = new THREE.CameraHelper(
   directional.shadow.camera
 );
 scene.add(directionalLightHelper);
-
+directionalLightHelper.visible = false;
 // Create a camera
 const camera = new THREE.PerspectiveCamera(
   75,
