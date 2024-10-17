@@ -50,11 +50,21 @@ scene.add(ambient);
 
 // Directional
 const directional = new THREE.DirectionalLight(0xffffff, 3);
-directional.position.x = 1.2;
+directional.position.x = 4;
+directional.position.y = 4;
 scene.add(directional);
+
+// Shadows
 directional.castShadow = true;
 directional.shadow.mapSize.width = 1024;
 directional.shadow.mapSize.height = 1024;
+directional.shadow.camera.far = 10;
+
+// Camera helper
+const directionalLightHelper = new THREE.CameraHelper(
+  directional.shadow.camera
+);
+scene.add(directionalLightHelper);
 
 // Create a camera
 const camera = new THREE.PerspectiveCamera(

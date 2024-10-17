@@ -47,3 +47,22 @@ directional.shadow.mapSize.height = 1024;
 ```
 
 you will notice that our shadow now is more realistic
+
+### Near and far
+
+your directional light uses a camera to see the object it's gonna light this camera have a near and fat properties and we can access them through our light this step wont do much to our shadows but it will prevent any bug first we need to add the camera helper to our scene
+
+```js
+const directionalLightHelper = new THREE.CameraHelper(
+  directional.shadow.camera
+);
+scene.add(directionalLightHelper);
+```
+
+you will notice that the near is good but the far one is too far so we need to update it
+
+```js
+directional.shadow.camera.far = 10;
+```
+
+this way we will avoid any bugs
