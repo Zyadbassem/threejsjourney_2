@@ -12,6 +12,11 @@ const sizes = {
   height: window.innerHeight,
 };
 
+// Load Textures
+const textureLoader = new THREE.TextureLoader();
+const bakedShadow = textureLoader.load("/textures/bakedShadow.jpg");
+const simpleShadow = textureLoader.load("/textures/simpleShadow.jpg");
+
 // create meshs
 
 // Sphere
@@ -22,10 +27,20 @@ const sphere = new THREE.Mesh(
 // Plane
 const map = new THREE.Mesh(
   new THREE.PlaneGeometry(),
-  new THREE.MeshStandardMaterial({
+  new THREE.MeshBasicMaterial({})
+);
+const shadowPlane = new THREE.Mesh(
+  new THREE.PlaneGeometry(3, 3),
+  new THREE.MeshBasicMaterial({
+    color: 0x000000,
+    transparent: true,
     side: THREE.DoubleSide,
+    alphaMap: simpleShadow,
   })
 );
+
+shadowPlane.rotation.x = -Math.PI * 0.5;
+shadowPlane.position.y = map.position.y + 0.02;
 sphere.castShadow = true;
 map.receiveShadow = true;
 
@@ -40,7 +55,7 @@ map.scale.y = 10;
 sphere.position.set(0, 1, 0);
 
 // Adding them to the scene
-scene.add(sphere, map);
+scene.add(sphere, map, shadowPlane);
 
 // LIGHTS
 
@@ -49,56 +64,11 @@ const ambient = new THREE.AmbientLight(0xffffff, 1);
 scene.add(ambient);
 
 // Directional
-// const directional = new THREE.DirectionalLight(0xffffff, 0.6);
-// directional.position.x = 4;
-// directional.position.y = 4;
-// scene.add(directional);
-// directional.castShadow = true;
-// directional.shadow.mapSize.width = 1024;
-// directional.shadow.mapSize.height = 1024;
-// directional.shadow.camera.far = 10;
-// directional.shadow.camera.top = 3;
-// directional.shadow.camera.top = 3;
-// directional.shadow.camera.bottom = -3;
-// directional.shadow.camera.left = -3;
-// directional.shadow.radius = 10;
-
-// // Camera helper
-// const directionalLightHelper = new THREE.CameraHelper(
-//   directional.shadow.camera
-// );
-// scene.add(directionalLightHelper);
-// directionalLightHelper.visible = false;
-
-// SpotLight
-const spotLight = new THREE.SpotLight(0xffffff, 10, 10, Math.PI * 0.3);
-//spotLight.castShadow = true;
-spotLight.position.set(0, 3, 3);
-scene.add(spotLight);
-scene.add(spotLight.target);
-spotLight.shadow.mapSize.width = 1024;
-spotLight.shadow.mapSize.height = 1024;
-spotLight.shadow.camera.far = 10;
-
-// Spot light helper
-const spotLightCameraHelper = new THREE.CameraHelper(spotLight.shadow.camera);
-scene.add(spotLightCameraHelper);
-spotLightCameraHelper.visible = false;
-
-// PointLight
-const pointLight = new THREE.PointLight(0xffffff, 3);
-pointLight.castShadow = true;
-pointLight.position.set(1, 3, 0);
-scene.add(pointLight);
-pointLight.shadow.mapSize.width = 1024;
-pointLight.shadow.mapSize.height = 1024;
-pointLight.shadow.camera.near = 0.1;
-pointLight.shadow.camera.far = 5;
-
-// Helper
-const pointLightCameraHelper = new THREE.CameraHelper(pointLight.shadow.camera);
-scene.add(pointLightCameraHelper);
-pointLightCameraHelper.visible = false;
+const directional = new THREE.DirectionalLight(0xffffff, 2);
+directional.position.x = 4;
+directional.position.y = 4;
+directional.position.z = 4;
+scene.add(directional);
 
 // Create a camera
 const camera = new THREE.PerspectiveCamera(
@@ -134,7 +104,19 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setSize(sizes.width, sizes.height);
 
+const clock = new THREE.Clock();
 const loob = () => {
+  const elapsedTime = clock.getElapsedTime();
+  // Update the sphere
+  sphere.position.x = Math.cos(elapsedTime) * 1.5;
+  sphere.position.z = Math.sin(elapsedTime) * 1.5;
+  sphere.position.y = 1 + Math.abs(Math.sin(elapsedTime * 3));
+
+  // Update the shadow
+  shadowPlane.position.x = sphere.position.x;
+  shadowPlane.position.z = sphere.position.z;
+  shadowPlane.material.opacity = 1 - sphere.position.y * 0.3;
+
   renderer.render(scene, camera);
   window.requestAnimationFrame(loob);
 };

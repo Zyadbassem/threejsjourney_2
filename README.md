@@ -175,3 +175,64 @@ now we can hide the helper
 ```js
 pointLightCameraHelper.visible = false;
 ```
+
+### Baking shadows
+
+we can use baked shadows so it will make the performance better go ahead and make the js file as we started this lesson and paste this line of code after the renderer
+
+```js
+renderer.shadowMap.enabled = false;
+```
+
+now load the texture in the static folder using the texture loader
+
+```js
+const textureLoader = new THREE.TextureLoader();
+const bakedShadow = textureLoader.load("/textures/bakedShadow.jpg");
+const simpleShadow = textureLoader.load("/textures/simpleShadow.jpg");
+```
+
+now we will change the plane material map to our baked shadow
+
+```js
+const map = new THREE.Mesh(
+  new THREE.PlaneGeometry(),
+  new THREE.MeshStandardMaterial({
+    side: THREE.DoubleSide,
+    map: bakedShadow,
+  })
+);
+```
+
+now we will create another plane and attach the other texture to it so it would move with our mesh
+
+```js
+const shadowPlane = new THREE.Mesh(
+  new THREE.PlaneGeometry(3, 3),
+  new THREE.MeshBasicMaterial({
+    color: 0x000000,
+    transparent: true,
+    side: THREE.DoubleSide,
+    alphaMap: simpleShadow,
+  })
+);
+hadowPlane.rotation.x = -Math.PI * 0.5;
+shadowPlane.position.y = map.position.y + 0.02;
+```
+
+now we'll add a small animation in our loob func
+
+```js
+const elapsedTime = clock.getElapsedTime();
+// Update the sphere
+sphere.position.x = Math.cos(elapsedTime) * 1.5;
+sphere.position.z = Math.sin(elapsedTime) * 1.5;
+sphere.position.y = 1 + Math.abs(Math.sin(elapsedTime * 3));
+
+// Update the shadow
+shadowPlane.position.x = sphere.position.x;
+shadowPlane.position.z = sphere.position.z;
+shadowPlane.material.opacity = 1 - sphere.position.y * 0.3;
+```
+
+you'll notice that the shadow is moving with the sphere and it's obacity is changing and with this we finished our lesson
