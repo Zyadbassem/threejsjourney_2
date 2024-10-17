@@ -83,3 +83,11 @@ now we no longer need the camera helper
 ```js
 directionalLightHelper.visible = false;
 ```
+
+### Blur
+
+we can control the blur using the radius property
+
+```js
+directional.shadow.radius = 10;
+```
