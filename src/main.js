@@ -26,6 +26,8 @@ const map = new THREE.Mesh(
     side: THREE.DoubleSide,
   })
 );
+sphere.castShadow = true;
+map.receiveShadow = true;
 
 // Update the meshs
 
@@ -47,8 +49,10 @@ const ambient = new THREE.AmbientLight(0xffffff, 1);
 scene.add(ambient);
 
 // Directional
-const directional = new THREE.DirectionalLight(0xffffff, 5);
+const directional = new THREE.DirectionalLight(0xffffff, 3);
+directional.position.x = 1.2;
 scene.add(directional);
+directional.castShadow = true;
 
 // Create a camera
 const camera = new THREE.PerspectiveCamera(
@@ -80,6 +84,7 @@ window.addEventListener("resize", () => {
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
 });
+renderer.shadowMap.enabled = true;
 
 renderer.setSize(sizes.width, sizes.height);
 
