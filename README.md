@@ -91,3 +91,23 @@ we can control the blur using the radius property
 ```js
 directional.shadow.radius = 10;
 ```
+
+### Shadow map algorithm
+
+there are different types of algroithms that the renderer uses to render the shadows each one of them differ in performance and quality
+
+1. THREE.BasicShadowMap: Very performant but lousy quality
+
+2. THREE.PCFShadowMap: Less performant but smoother edges
+
+3. THREE.PCFSoftShadowMap: Less performant but even softer edges
+
+4. THREE.VSMShadowMap: Less performant, more constraints, can have unexpected results
+
+we will try one of them
+
+```js
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+```
+
+you will notice that our blur is gone thats because the blur only works with THREE.PCFShadowMap so you gotta dicide what you want
