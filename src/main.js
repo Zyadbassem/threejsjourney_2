@@ -53,6 +53,8 @@ const directional = new THREE.DirectionalLight(0xffffff, 3);
 directional.position.x = 1.2;
 scene.add(directional);
 directional.castShadow = true;
+directional.shadow.mapSize.width = 1024;
+directional.shadow.mapSize.height = 1024;
 
 // Create a camera
 const camera = new THREE.PerspectiveCamera(

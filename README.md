@@ -36,3 +36,14 @@ since we only have the directional light we can do it that way
 ```js
 directional.castShadow = true;
 ```
+
+### Shadow map optimisations
+
+you'll notice that the shadow isn't smooth we can fix this issue with shadow map optimisations we need to update the width and the height of our directional light shadow map this will fix the quality issue
+
+```js
+directional.shadow.mapSize.width = 1024;
+directional.shadow.mapSize.height = 1024;
+```
+
+you will notice that our shadow now is more realistic
