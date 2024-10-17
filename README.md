@@ -111,3 +111,37 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 ```
 
 you will notice that our blur is gone thats because the blur only works with THREE.PCFShadowMap so you gotta dicide what you want
+
+### SpotLight
+
+let's add a spot light and a camera helper for it and let it make shadows
+
+```js
+const spotLight = new THREE.SpotLight(0xffffff, 3.6, 10, Math.PI * 0.3);
+spotLight.castShadow = true;
+spotLight.position.set(0, 2, 2);
+scene.add(spotLight);
+scene.add(spotLight.target);
+// Spot light helper
+const spotLightCameraHelper = new THREE.CameraHelper(spotLight.shadow.camera);
+scene.add(spotLightCameraHelper);
+```
+
+as we did with the directional light we will change the mapSize of the spotlight
+
+```js
+spotLight.shadow.mapSize.width = 1024;
+spotLight.shadow.mapSize.height = 1024;
+```
+
+we will also change the far of the spotlight shadow camera
+
+```js
+spotLight.shadow.camera.far = 10;
+```
+
+now we can hide the helper as we did before
+
+```js
+spotLightCameraHelper.visible = false;
+```

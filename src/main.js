@@ -49,7 +49,7 @@ const ambient = new THREE.AmbientLight(0xffffff, 1);
 scene.add(ambient);
 
 // Directional
-const directional = new THREE.DirectionalLight(0xffffff, 3);
+const directional = new THREE.DirectionalLight(0xffffff, 0.6);
 directional.position.x = 4;
 directional.position.y = 4;
 scene.add(directional);
@@ -64,12 +64,29 @@ directional.shadow.camera.top = 3;
 directional.shadow.camera.bottom = -3;
 directional.shadow.camera.left = -3;
 directional.shadow.radius = 10;
+
 // Camera helper
 const directionalLightHelper = new THREE.CameraHelper(
   directional.shadow.camera
 );
 scene.add(directionalLightHelper);
 directionalLightHelper.visible = false;
+
+// SpotLight
+const spotLight = new THREE.SpotLight(0xffffff, 10, 10, Math.PI * 0.3);
+spotLight.castShadow = true;
+spotLight.position.set(0, 3, 3);
+scene.add(spotLight);
+scene.add(spotLight.target);
+spotLight.shadow.mapSize.width = 1024;
+spotLight.shadow.mapSize.height = 1024;
+spotLight.shadow.camera.far = 10;
+
+// Spot light helper
+const spotLightCameraHelper = new THREE.CameraHelper(spotLight.shadow.camera);
+scene.add(spotLightCameraHelper);
+spotLightCameraHelper.visible = false;
+
 // Create a camera
 const camera = new THREE.PerspectiveCamera(
   75,
