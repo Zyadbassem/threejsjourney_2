@@ -14,8 +14,6 @@ const sizes = {
 
 // Load Textures
 const textureLoader = new THREE.TextureLoader();
-const bakedShadow = textureLoader.load("/textures/bakedShadow.jpg");
-const simpleShadow = textureLoader.load("/textures/simpleShadow.jpg");
 
 // create meshs
 
@@ -24,38 +22,9 @@ const sphere = new THREE.Mesh(
   new THREE.SphereGeometry(),
   new THREE.MeshStandardMaterial()
 );
-// Plane
-const map = new THREE.Mesh(
-  new THREE.PlaneGeometry(),
-  new THREE.MeshBasicMaterial({})
-);
-const shadowPlane = new THREE.Mesh(
-  new THREE.PlaneGeometry(3, 3),
-  new THREE.MeshBasicMaterial({
-    color: 0x000000,
-    transparent: true,
-    side: THREE.DoubleSide,
-    alphaMap: simpleShadow,
-  })
-);
-
-shadowPlane.rotation.x = -Math.PI * 0.5;
-shadowPlane.position.y = map.position.y + 0.02;
-sphere.castShadow = true;
-map.receiveShadow = true;
-
-// Update the meshs
-
-// rotate the plane so it's fixed
-map.rotation.x = -Math.PI * 0.5;
-map.scale.x = 10;
-map.scale.y = 10;
-
-// update the position of the meshs
-sphere.position.set(0, 1, 0);
 
 // Adding them to the scene
-scene.add(sphere, map, shadowPlane);
+scene.add(sphere);
 
 // LIGHTS
 
@@ -77,8 +46,9 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   100
 );
-camera.position.setZ(4);
-camera.position.setY(0.5);
+camera.position.setZ(5);
+camera.position.setY(3);
+camera.position.setX(2);
 scene.add(camera);
 
 //Controls
@@ -107,15 +77,6 @@ renderer.setSize(sizes.width, sizes.height);
 const clock = new THREE.Clock();
 const loob = () => {
   const elapsedTime = clock.getElapsedTime();
-  // Update the sphere
-  sphere.position.x = Math.cos(elapsedTime) * 1.5;
-  sphere.position.z = Math.sin(elapsedTime) * 1.5;
-  sphere.position.y = 1 + Math.abs(Math.sin(elapsedTime * 3));
-
-  // Update the shadow
-  shadowPlane.position.x = sphere.position.x;
-  shadowPlane.position.z = sphere.position.z;
-  shadowPlane.material.opacity = 1 - sphere.position.y * 0.3;
 
   renderer.render(scene, camera);
   window.requestAnimationFrame(loob);

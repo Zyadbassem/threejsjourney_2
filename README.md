@@ -6,233 +6,99 @@ hey there I'm Zyad and here's the next chapter of Three.js journey in the last c
 
 in this chapter we will learn about lights, shadows and much more
 
-## Shadows
+## Hunted house
 
-in this lesson we'll learn how shadows work first you should have a plane as ground and a sphere and ambient light and a directional light so go ahead and do this then come back
+in this lesson we're gonna practice what we learned til now by building a hunted house with graves around it
 
-### Activate Shadows
+### Set up
 
-we'll need to activate the shadow map on the renderer so go ahead and paste this line of code after creating your renderer
-
-```js
-renderer.shadowMap.enabled = true;
-```
-
-now we want to go through each mesh and decide if the mesh can cast or receive a shadow since we only have two meshs it will be like this
+your js file should look like this
 
 ```js
-sphere.castShadow = true;
-map.receiveShadow = true;
-```
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/Addons.js";
+// Get the canvas
+const canvas = document.querySelector(".webgl");
 
-now finally we need to activate cast shadow property on one of these lights
+// Create a scene
+const scene = new THREE.Scene();
 
-1. PointLight
-2. DirectionalLight
-3. SpotLight
+// Get sizes
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
 
-since we only have the directional light we can do it that way
-
-```js
-directional.castShadow = true;
-```
-
-### Shadow map optimisations
-
-you'll notice that the shadow isn't smooth we can fix this issue with shadow map optimisations we need to update the width and the height of our directional light shadow map this will fix the quality issue
-
-```js
-directional.shadow.mapSize.width = 1024;
-directional.shadow.mapSize.height = 1024;
-```
-
-you will notice that our shadow now is more realistic
-
-### Near and far
-
-your directional light uses a camera to see the object it's gonna light this camera have a near and fat properties and we can access them through our light this step wont do much to our shadows but it will prevent any bug first we need to add the camera helper to our scene
-
-```js
-const directionalLightHelper = new THREE.CameraHelper(
-  directional.shadow.camera
-);
-scene.add(directionalLightHelper);
-```
-
-you will notice that the near is good but the far one is too far so we need to update it
-
-```js
-directional.shadow.camera.far = 10;
-```
-
-this way we will avoid any bugs
-
-### Amplitude
-
-now we can update the camera amplitude cause as you can see it's so huge
-
-```js
-directional.shadow.camera.top = 3;
-directional.shadow.camera.top = 3;
-directional.shadow.camera.bottom = -3;
-directional.shadow.camera.left = -3;
-```
-
-now we no longer need the camera helper
-
-```js
-directionalLightHelper.visible = false;
-```
-
-### Blur
-
-we can control the blur using the radius property
-
-```js
-directional.shadow.radius = 10;
-```
-
-### Shadow map algorithm
-
-there are different types of algroithms that the renderer uses to render the shadows each one of them differ in performance and quality
-
-1. THREE.BasicShadowMap: Very performant but lousy quality
-
-2. THREE.PCFShadowMap: Less performant but smoother edges
-
-3. THREE.PCFSoftShadowMap: Less performant but even softer edges
-
-4. THREE.VSMShadowMap: Less performant, more constraints, can have unexpected results
-
-we will try one of them
-
-```js
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-```
-
-you will notice that our blur is gone thats because the blur only works with THREE.PCFShadowMap so you gotta dicide what you want
-
-### SpotLight
-
-let's add a spot light and a camera helper for it and let it make shadows
-
-```js
-const spotLight = new THREE.SpotLight(0xffffff, 3.6, 10, Math.PI * 0.3);
-spotLight.castShadow = true;
-spotLight.position.set(0, 2, 2);
-scene.add(spotLight);
-scene.add(spotLight.target);
-// Spot light helper
-const spotLightCameraHelper = new THREE.CameraHelper(spotLight.shadow.camera);
-scene.add(spotLightCameraHelper);
-```
-
-as we did with the directional light we will change the mapSize of the spotlight
-
-```js
-spotLight.shadow.mapSize.width = 1024;
-spotLight.shadow.mapSize.height = 1024;
-```
-
-we will also change the far of the spotlight shadow camera
-
-```js
-spotLight.shadow.camera.far = 10;
-```
-
-now we can hide the helper as we did before
-
-```js
-spotLightCameraHelper.visible = false;
-```
-
-### PointLight
-
-as we did with the directional and the spot light we will do the same with the pointLight
-
-```js
-const pointLight = new THREE.PointLight(0xffffff, 3);
-pointLight.castShadow = true;
-pointLight.position.set(1, 1, 0);
-scene.add(pointLight);
-
-// Helper
-const pointLightCameraHelper = new THREE.CameraHelper(pointLight.shadow.camera);
-scene.add(pointLightCameraHelper);
-```
-
-then we can edit our properties
-
-```js
-pointLight.shadow.mapSize.width = 1024;
-pointLight.shadow.mapSize.height = 1024;
-pointLight.shadow.camera.near = 0.1;
-pointLight.shadow.camera.far = 5;
-```
-
-now we can hide the helper
-
-```js
-pointLightCameraHelper.visible = false;
-```
-
-### Baking shadows
-
-we can use baked shadows so it will make the performance better go ahead and make the js file as we started this lesson and paste this line of code after the renderer
-
-```js
-renderer.shadowMap.enabled = false;
-```
-
-now load the texture in the static folder using the texture loader
-
-```js
+// Load Textures
 const textureLoader = new THREE.TextureLoader();
-const bakedShadow = textureLoader.load("/textures/bakedShadow.jpg");
-const simpleShadow = textureLoader.load("/textures/simpleShadow.jpg");
-```
 
-now we will change the plane material map to our baked shadow
+// create meshs
 
-```js
-const map = new THREE.Mesh(
-  new THREE.PlaneGeometry(),
-  new THREE.MeshStandardMaterial({
-    side: THREE.DoubleSide,
-    map: bakedShadow,
-  })
+// Sphere
+const sphere = new THREE.Mesh(
+  new THREE.SphereGeometry(),
+  new THREE.MeshStandardMaterial()
 );
-```
 
-now we will create another plane and attach the other texture to it so it would move with our mesh
+// Adding them to the scene
+scene.add(sphere);
 
-```js
-const shadowPlane = new THREE.Mesh(
-  new THREE.PlaneGeometry(3, 3),
-  new THREE.MeshBasicMaterial({
-    color: 0x000000,
-    transparent: true,
-    side: THREE.DoubleSide,
-    alphaMap: simpleShadow,
-  })
+// LIGHTS
+
+// Ambient
+const ambient = new THREE.AmbientLight(0xffffff, 1);
+scene.add(ambient);
+
+// Directional
+const directional = new THREE.DirectionalLight(0xffffff, 2);
+directional.position.x = 4;
+directional.position.y = 4;
+directional.position.z = 4;
+scene.add(directional);
+
+// Create a camera
+const camera = new THREE.PerspectiveCamera(
+  75,
+  sizes.width / sizes.height,
+  0.1,
+  100
 );
-hadowPlane.rotation.x = -Math.PI * 0.5;
-shadowPlane.position.y = map.position.y + 0.02;
+camera.position.setZ(5);
+camera.position.setY(3);
+camera.position.setX(2);
+scene.add(camera);
+
+//Controls
+const controls = new OrbitControls(camera, canvas);
+
+// Update after resizing
+window.addEventListener("resize", () => {
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+// Render
+const renderer = new THREE.WebGLRenderer({
+  canvas: canvas,
+});
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.setSize(sizes.width, sizes.height);
+
+const clock = new THREE.Clock();
+const loob = () => {
+  const elapsedTime = clock.getElapsedTime();
+
+  renderer.render(scene, camera);
+  window.requestAnimationFrame(loob);
+};
+loob();
 ```
 
-now we'll add a small animation in our loob func
-
-```js
-const elapsedTime = clock.getElapsedTime();
-// Update the sphere
-sphere.position.x = Math.cos(elapsedTime) * 1.5;
-sphere.position.z = Math.sin(elapsedTime) * 1.5;
-sphere.position.y = 1 + Math.abs(Math.sin(elapsedTime * 3));
-
-// Update the shadow
-shadowPlane.position.x = sphere.position.x;
-shadowPlane.position.z = sphere.position.z;
-shadowPlane.material.opacity = 1 - sphere.position.y * 0.3;
-```
-
-you'll notice that the shadow is moving with the sphere and it's obacity is changing and with this we finished our lesson
+now let's start our lesson
