@@ -102,3 +102,20 @@ loob();
 ```
 
 now let's start our lesson
+
+### Floor
+
+first thing we're gonna do is the floor we will use a plane geometry and MeshStandardMaterial and then we'll rotate it quarter a circle so it is more like a floor
+
+```js
+// Floor
+const floor = new THREE.Mesh(
+  new THREE.PlaneGeometry(20, 20),
+  new THREE.MeshStandardMaterial()
+);
+
+// Rotate the floor
+floor.rotateX(-Math.PI * 0.5);
+```
+
+now you should have a floor, feel free to remove the sphere

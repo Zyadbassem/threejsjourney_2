@@ -17,23 +17,26 @@ const textureLoader = new THREE.TextureLoader();
 
 // create meshs
 
-// Sphere
-const sphere = new THREE.Mesh(
-  new THREE.SphereGeometry(),
+// Floor
+const floor = new THREE.Mesh(
+  new THREE.PlaneGeometry(20, 20),
   new THREE.MeshStandardMaterial()
 );
 
+// Rotate the floor
+floor.rotateX(-Math.PI * 0.5);
+
 // Adding them to the scene
-scene.add(sphere);
+scene.add(floor);
 
 // LIGHTS
 
 // Ambient
-const ambient = new THREE.AmbientLight(0xffffff, 1);
+const ambient = new THREE.AmbientLight(0xffffff, 0.7);
 scene.add(ambient);
 
 // Directional
-const directional = new THREE.DirectionalLight(0xffffff, 2);
+const directional = new THREE.DirectionalLight(0xffffff, 0.6);
 directional.position.x = 4;
 directional.position.y = 4;
 directional.position.z = 4;
