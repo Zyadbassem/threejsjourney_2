@@ -183,3 +183,7 @@ house.add(bush1, bush2, bush3, bush4);
 ```
 
 and this way we built our house you can change the color of the door so you can see it and all these things we learned before so if you find anything you cant understand you can go back to its lesson
+
+### Graves
+
+we now want to have some graves on the floor to do this we will create a group in this group we will add our graves in a loob and we will adjust thier postion so it be as a circle we will use Math.PI which is half a circle and we will multibly it by 2 so it's a full circle then we will make this circle bigger by using a radius which will be random number from 3 to 4
