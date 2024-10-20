@@ -187,3 +187,27 @@ and this way we built our house you can change the color of the door so you can 
 ### Graves
 
 we now want to have some graves on the floor to do this we will create a group in this group we will add our graves in a loob and we will adjust thier postion so it be as a circle we will use Math.PI which is half a circle and we will multibly it by 2 so it's a full circle then we will make this circle bigger by using a radius which will be random number from 3 to 4
+
+```js
+/* 
+GRAVES
+*/
+const graves = new THREE.Group();
+scene.add(graves);
+
+const gravesGeometry = new THREE.BoxGeometry(0.6, 0.8, 0.2);
+const gravesMaterial = new THREE.MeshStandardMaterial();
+
+for (let i = 0; i < 40; i++) {
+  const grave = new THREE.Mesh(gravesGeometry, gravesMaterial);
+  graves.add(grave);
+
+  const angle = Math.PI * 2 * Math.random();
+  grave.position.x = Math.sin(angle) * (3 + Math.random() * 5);
+  grave.position.z = Math.cos(angle) * (3 + Math.random() * 5);
+  grave.position.y = Math.random() * 0.4;
+  grave.rotateX((Math.random() - 0.5) * 0.4);
+  grave.rotateZ((Math.random() - 0.5) * 0.4);
+  grave.rotateY((Math.random() - 0.5) * 0.4);
+}
+```
