@@ -211,3 +211,78 @@ for (let i = 0; i < 40; i++) {
   grave.rotateY((Math.random() - 0.5) * 0.4);
 }
 ```
+
+### Floor Textures
+
+now we finished adding meshs lets make our meshs look better by applying cool textures, you will find a new folder in our static folder it contains every texture we will need in this lesson so here's what we are gonna do:
+
+1. load the textures using texturesLoader
+
+2. adjust the textures as we need, we'll change the repeating and colorSpace
+
+3. attach the textures to the Floor material
+
+so now lets do this
+
+```js
+/**
+ * FLOOR TEXTURES
+ */
+const floorDiffTextture = textureLoader.load(
+  "./textures/16-haunted-house-resources/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_diff_1k.jpg"
+);
+
+const floorDispTextture = textureLoader.load(
+  "./textures/16-haunted-house-resources/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_disp_1k.jpg"
+);
+
+const floorARMTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_arm_1k.jpg"
+);
+
+const floorAlphaTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/floor/alpha.webp"
+);
+
+const floorNormalTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_nor_gl_1k.jpg"
+);
+floorNormalTexture.encoding = THREE.LinearEncoding;
+
+floorDiffTextture.repeat.set(8, 8);
+floorARMTextures.repeat.set(8, 8);
+floorNormalTexture.repeat.set(8, 8);
+floorDispTextture.repeat.set(8, 8);
+
+floorDiffTextture.wrapS = THREE.RepeatWrapping;
+floorARMTextures.wrapS = THREE.RepeatWrapping;
+floorNormalTexture.wrapS = THREE.RepeatWrapping;
+floorDispTextture.wrapS = THREE.RepeatWrapping;
+
+floorDiffTextture.wrapT = THREE.RepeatWrapping;
+floorARMTextures.wrapT = THREE.RepeatWrapping;
+floorNormalTexture.wrapT = THREE.RepeatWrapping;
+floorDispTextture.wrapT = THREE.RepeatWrapping;
+
+floorDiffTextture.colorSpace = THREE.SRGBColorSpace;
+// create meshs
+
+// Floor
+const floor = new THREE.Mesh(
+  new THREE.PlaneGeometry(20, 20, 100, 100),
+  new THREE.MeshStandardMaterial({
+    alphaMap: floorAlphaTexture,
+    transparent: true,
+    map: floorDiffTextture,
+    aoMap: floorARMTextures,
+    roughnessMap: floorARMTextures,
+    metalnessMap: floorARMTextures,
+    normalMap: floorNormalTexture,
+    displacementMap: floorDispTextture,
+    displacementScale: 0.5,
+  })
+);
+scene.add(floor);
+```
+
+and now your floor should look more realistic

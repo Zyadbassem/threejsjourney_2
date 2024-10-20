@@ -39,10 +39,10 @@ const floorNormalTexture = textureLoader.load(
 );
 floorNormalTexture.encoding = THREE.LinearEncoding;
 
-floorDiffTextture.repeat.set(4, 4);
-floorARMTextures.repeat.set(4, 4);
-floorNormalTexture.repeat.set(4, 4);
-floorDispTextture.repeat.set(4, 4);
+floorDiffTextture.repeat.set(8, 8);
+floorARMTextures.repeat.set(8, 8);
+floorNormalTexture.repeat.set(8, 8);
+floorDispTextture.repeat.set(8, 8);
 
 floorDiffTextture.wrapS = THREE.RepeatWrapping;
 floorARMTextures.wrapS = THREE.RepeatWrapping;
@@ -69,7 +69,7 @@ const floor = new THREE.Mesh(
     metalnessMap: floorARMTextures,
     normalMap: floorNormalTexture,
     displacementMap: floorDispTextture,
-    displacementScale: 0.3,
+    displacementScale: 0.5,
   })
 );
 scene.add(floor);
