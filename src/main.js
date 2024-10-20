@@ -55,6 +55,23 @@ floorNormalTexture.wrapT = THREE.RepeatWrapping;
 floorDispTextture.wrapT = THREE.RepeatWrapping;
 
 floorDiffTextture.colorSpace = THREE.SRGBColorSpace;
+
+/*
+ * Wall Textures
+ **/
+
+const wallDiffTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/wall/castle_brick_broken_06_1k/castle_brick_broken_06_diff_1k.jpg"
+);
+const wallARMTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/wall/castle_brick_broken_06_1k/castle_brick_broken_06_arm_1k.jpg"
+);
+const wallNormalTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/wall/castle_brick_broken_06_1k/castle_brick_broken_06_nor_gl_1k.jpg"
+);
+
+wallDiffTextures.colorSpace = THREE.SRGBColorSpace;
+
 // create meshs
 
 // Floor
@@ -88,7 +105,13 @@ scene.add(house);
 // walls
 const walls = new THREE.Mesh(
   new THREE.BoxGeometry(4, 2.5, 4),
-  new THREE.MeshStandardMaterial()
+  new THREE.MeshStandardMaterial({
+    map: wallDiffTextures,
+    roughnessMap: wallARMTextures,
+    aoMap: wallARMTextures,
+    metalnessMap: wallARMTextures,
+    normalMap: wallNormalTextures,
+  })
 );
 walls.position.y = 2.5 / 2;
 house.add(walls);
@@ -159,13 +182,12 @@ for (let i = 0; i < 40; i++) {
  * LIGHTS
  */
 
-// Ambient
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(5, 10, 7.5);
 directionalLight.castShadow = false;
 scene.add(directionalLight);
 
-const ambientLight = new THREE.AmbientLight(0x404040); // Soft ambient light
+const ambientLight = new THREE.AmbientLight(0x404040, 3); // Soft ambient light
 scene.add(ambientLight);
 
 // Create a camera

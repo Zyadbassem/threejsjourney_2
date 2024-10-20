@@ -286,3 +286,38 @@ scene.add(floor);
 ```
 
 and now your floor should look more realistic
+
+### Walls Textures
+
+same as we did with the floor textures we will follow the same steps
+
+```js
+/*
+ * Wall Textures
+ **/
+
+const wallDiffTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/wall/castle_brick_broken_06_1k/castle_brick_broken_06_diff_1k.jpg"
+);
+const wallARMTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/wall/castle_brick_broken_06_1k/castle_brick_broken_06_arm_1k.jpg"
+);
+const wallNormalTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/wall/castle_brick_broken_06_1k/castle_brick_broken_06_nor_gl_1k.jpg"
+);
+
+wallDiffTextures.colorSpace = THREE.SRGBColorSpace;
+// walls
+const walls = new THREE.Mesh(
+  new THREE.BoxGeometry(4, 2.5, 4),
+  new THREE.MeshStandardMaterial({
+    map: wallDiffTextures,
+    roughnessMap: wallARMTextures,
+    aoMap: wallARMTextures,
+    metalnessMap: wallARMTextures,
+    normalMap: wallNormalTextures,
+  })
+);
+```
+
+this way your walls will be more realistic
