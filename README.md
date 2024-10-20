@@ -415,3 +415,52 @@ const gravesMaterial = new THREE.MeshStandardMaterial({
   normalMap: gravesNormalTextures,
 });
 ```
+
+### door textures
+
+don't worry we are almost there this is the last texture
+
+```js
+/**
+ * DOOR TEXTURES
+ */
+const doorDiffTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/door/color.jpg"
+);
+const doornormalTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/door/normal.jpg"
+);
+const doorRoughnessTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/door/roughness.jpg"
+);
+const doorHeightTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/door/height.jpg"
+);
+const doorMetalnessTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/door/metalness.jpg"
+);
+const doorAlphaTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/door/alpha.jpg"
+);
+const doorAoTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/door/ambientOcclusion.jpg"
+);
+doorDiffTexture.colorSpace = THREE.SRGBColorSpace;
+const door = new THREE.Mesh(
+  new THREE.PlaneGeometry(2.2, 2.2),
+  new THREE.MeshStandardMaterial({
+    map: doorDiffTexture,
+    alphaMap: doorAlphaTexture,
+    transparent: true,
+    aoMap: doorAoTexture,
+    roughnessMap: doorRoughnessTexture,
+    metalnessMap: doorMetalnessTexture,
+    displacementMap: doorHeightTexture,
+    normalMap: doornormalTexture,
+    displacementScale: 0.5,
+    displacementBias: 0.04,
+  })
+);
+```
+
+voi la this was the last texture, take a break and come back
