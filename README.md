@@ -321,3 +321,37 @@ const walls = new THREE.Mesh(
 ```
 
 this way your walls will be more realistic
+
+### Roof Textures
+
+again same as the previous textures we will do the same
+
+```js
+const roofDiffTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/roof/roof_slates_02_1k/roof_slates_02_diff_1k.jpg"
+);
+const roofARMTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/roof/roof_slates_02_1k/roof_slates_02_arm_1k.jpg"
+);
+const roofNormalTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/roof/roof_slates_02_1k/roof_slates_02_nor_gl_1k.jpg"
+);
+roofDiffTextures.colorSpace = THREE.SRGBColorSpace;
+roofDiffTextures.repeat.set(3, 1);
+roofARMTextures.repeat.set(3, 1);
+roofNormalTextures.repeat.set(3, 1);
+
+roofDiffTextures.wrapS = THREE.RepeatWrapping;
+roofARMTextures.wrapS = THREE.RepeatWrapping;
+roofNormalTextures.wrapS = THREE.RepeatWrapping;
+const roof = new THREE.Mesh(
+  new THREE.ConeGeometry(3.5, 1.5, 4),
+  new THREE.MeshStandardMaterial({
+    map: roofDiffTextures,
+    metalnessMap: roofARMTextures,
+    roughnessMap: roofARMTextures,
+    aoMap: roofARMTextures,
+    normalMap: roofNormalTextures,
+  })
+);
+```

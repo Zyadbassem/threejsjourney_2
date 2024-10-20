@@ -37,7 +37,6 @@ const floorAlphaTexture = textureLoader.load(
 const floorNormalTexture = textureLoader.load(
   "./textures/16-haunted-house-resources/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_nor_gl_1k.jpg"
 );
-floorNormalTexture.encoding = THREE.LinearEncoding;
 
 floorDiffTextture.repeat.set(8, 8);
 floorARMTextures.repeat.set(8, 8);
@@ -72,6 +71,26 @@ const wallNormalTextures = textureLoader.load(
 
 wallDiffTextures.colorSpace = THREE.SRGBColorSpace;
 
+/**
+ * ROOF TEXTURES
+ */
+const roofDiffTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/roof/roof_slates_02_1k/roof_slates_02_diff_1k.jpg"
+);
+const roofARMTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/roof/roof_slates_02_1k/roof_slates_02_arm_1k.jpg"
+);
+const roofNormalTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/roof/roof_slates_02_1k/roof_slates_02_nor_gl_1k.jpg"
+);
+roofDiffTextures.colorSpace = THREE.SRGBColorSpace;
+roofDiffTextures.repeat.set(3, 1);
+roofARMTextures.repeat.set(3, 1);
+roofNormalTextures.repeat.set(3, 1);
+
+roofDiffTextures.wrapS = THREE.RepeatWrapping;
+roofARMTextures.wrapS = THREE.RepeatWrapping;
+roofNormalTextures.wrapS = THREE.RepeatWrapping;
 // create meshs
 
 // Floor
@@ -119,7 +138,13 @@ house.add(walls);
 // roof
 const roof = new THREE.Mesh(
   new THREE.ConeGeometry(3.5, 1.5, 4),
-  new THREE.MeshStandardMaterial()
+  new THREE.MeshStandardMaterial({
+    map: roofDiffTextures,
+    metalnessMap: roofARMTextures,
+    roughnessMap: roofARMTextures,
+    aoMap: roofARMTextures,
+    normalMap: roofNormalTextures,
+  })
 );
 roof.position.y = 3.26;
 roof.rotateY(Math.PI * 0.25);
@@ -182,12 +207,12 @@ for (let i = 0; i < 40; i++) {
  * LIGHTS
  */
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
 directionalLight.position.set(5, 10, 7.5);
 directionalLight.castShadow = false;
 scene.add(directionalLight);
 
-const ambientLight = new THREE.AmbientLight(0x404040, 3); // Soft ambient light
+const ambientLight = new THREE.AmbientLight(0x404040, 1); // Soft ambient light
 scene.add(ambientLight);
 
 // Create a camera
