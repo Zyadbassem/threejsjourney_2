@@ -15,12 +15,62 @@ const sizes = {
 // Load Textures
 const textureLoader = new THREE.TextureLoader();
 
+/**
+ * FLOOR TEXTURES
+ */
+const floorDiffTextture = textureLoader.load(
+  "./textures/16-haunted-house-resources/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_diff_1k.jpg"
+);
+
+const floorDispTextture = textureLoader.load(
+  "./textures/16-haunted-house-resources/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_disp_1k.jpg"
+);
+
+const floorARMTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_arm_1k.jpg"
+);
+
+const floorAlphaTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/floor/alpha.webp"
+);
+
+const floorNormalTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_nor_gl_1k.jpg"
+);
+floorNormalTexture.encoding = THREE.LinearEncoding;
+
+floorDiffTextture.repeat.set(4, 4);
+floorARMTextures.repeat.set(4, 4);
+floorNormalTexture.repeat.set(4, 4);
+floorDispTextture.repeat.set(4, 4);
+
+floorDiffTextture.wrapS = THREE.RepeatWrapping;
+floorARMTextures.wrapS = THREE.RepeatWrapping;
+floorNormalTexture.wrapS = THREE.RepeatWrapping;
+floorDispTextture.wrapS = THREE.RepeatWrapping;
+
+floorDiffTextture.wrapT = THREE.RepeatWrapping;
+floorARMTextures.wrapT = THREE.RepeatWrapping;
+floorNormalTexture.wrapT = THREE.RepeatWrapping;
+floorDispTextture.wrapT = THREE.RepeatWrapping;
+
+floorDiffTextture.colorSpace = THREE.SRGBColorSpace;
 // create meshs
 
 // Floor
 const floor = new THREE.Mesh(
-  new THREE.PlaneGeometry(20, 20),
-  new THREE.MeshStandardMaterial()
+  new THREE.PlaneGeometry(20, 20, 100, 100),
+  new THREE.MeshStandardMaterial({
+    alphaMap: floorAlphaTexture,
+    transparent: true,
+    map: floorDiffTextture,
+    aoMap: floorARMTextures,
+    roughnessMap: floorARMTextures,
+    metalnessMap: floorARMTextures,
+    normalMap: floorNormalTexture,
+    displacementMap: floorDispTextture,
+    displacementScale: 0.3,
+  })
 );
 scene.add(floor);
 
@@ -110,15 +160,13 @@ for (let i = 0; i < 40; i++) {
  */
 
 // Ambient
-const ambient = new THREE.AmbientLight(0xffffff, 0.7);
-scene.add(ambient);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 10, 7.5);
+directionalLight.castShadow = false;
+scene.add(directionalLight);
 
-// Directional
-const directional = new THREE.DirectionalLight(0xffffff, 0.6);
-directional.position.x = 4;
-directional.position.y = 4;
-directional.position.z = -4;
-scene.add(directional);
+const ambientLight = new THREE.AmbientLight(0x404040); // Soft ambient light
+scene.add(ambientLight);
 
 // Create a camera
 const camera = new THREE.PerspectiveCamera(
