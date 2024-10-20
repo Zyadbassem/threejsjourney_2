@@ -355,3 +355,38 @@ const roof = new THREE.Mesh(
   })
 );
 ```
+
+### Bushes Textures
+
+yes just like the previous ones
+
+```js
+/**
+ * BUSHES TEXTURES
+ */
+const bushesDiffTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/bush/leaves_forest_ground_1k/leaves_forest_ground_diff_1k.jpg"
+);
+const bushesARMTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/bush/leaves_forest_ground_1k/leaves_forest_ground_arm_1k.jpg"
+);
+const bushesNormalTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/bush/leaves_forest_ground_1k/leaves_forest_nor_gl_diff_1k.jpg"
+);
+bushesDiffTexture.colorSpace = THREE.SRGBColorSpace;
+bushesDiffTexture.repeat.set(2, 1);
+bushesARMTexture.repeat.set(2, 1);
+bushesNormalTexture.repeat.set(2, 1);
+
+bushesDiffTexture.wrapS = THREE.RepeatWrapping;
+bushesARMTexture.wrapS = THREE.RepeatWrapping;
+bushesNormalTexture.wrapS = THREE.RepeatWrapping;
+const bushMaterial = new THREE.MeshStandardMaterial({
+  map: bushesDiffTexture,
+  aoMap: bushesARMTexture,
+  roughnessMap: bushesARMTexture,
+  metalnessMap: bushesARMTexture,
+  normalMap: bushesNormalTexture,
+  color: "#ccffcc",
+});
+```

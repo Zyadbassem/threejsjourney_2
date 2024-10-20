@@ -91,6 +91,28 @@ roofNormalTextures.repeat.set(3, 1);
 roofDiffTextures.wrapS = THREE.RepeatWrapping;
 roofARMTextures.wrapS = THREE.RepeatWrapping;
 roofNormalTextures.wrapS = THREE.RepeatWrapping;
+
+/**
+ * BUSHES TEXTURES
+ */
+const bushesDiffTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/bush/leaves_forest_ground_1k/leaves_forest_ground_diff_1k.jpg"
+);
+const bushesARMTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/bush/leaves_forest_ground_1k/leaves_forest_ground_arm_1k.jpg"
+);
+const bushesNormalTexture = textureLoader.load(
+  "./textures/16-haunted-house-resources/bush/leaves_forest_ground_1k/leaves_forest_nor_gl_diff_1k.jpg"
+);
+bushesDiffTexture.colorSpace = THREE.SRGBColorSpace;
+bushesDiffTexture.repeat.set(2, 1);
+bushesARMTexture.repeat.set(2, 1);
+bushesNormalTexture.repeat.set(2, 1);
+
+bushesDiffTexture.wrapS = THREE.RepeatWrapping;
+bushesARMTexture.wrapS = THREE.RepeatWrapping;
+bushesNormalTexture.wrapS = THREE.RepeatWrapping;
+
 // create meshs
 
 // Floor
@@ -105,7 +127,7 @@ const floor = new THREE.Mesh(
     metalnessMap: floorARMTextures,
     normalMap: floorNormalTexture,
     displacementMap: floorDispTextture,
-    displacementScale: 0.5,
+    displacementScale: 0.3,
   })
 );
 scene.add(floor);
@@ -161,7 +183,14 @@ house.add(door);
 
 // Bushes
 const bushGeometry = new THREE.SphereGeometry(1, 16, 16);
-const bushMaterial = new THREE.MeshStandardMaterial();
+const bushMaterial = new THREE.MeshStandardMaterial({
+  map: bushesDiffTexture,
+  aoMap: bushesARMTexture,
+  roughnessMap: bushesARMTexture,
+  metalnessMap: bushesARMTexture,
+  normalMap: bushesNormalTexture,
+  color: "#ccffcc",
+});
 
 const bush1 = new THREE.Mesh(bushGeometry, bushMaterial);
 bush1.scale.set(0.5, 0.5, 0.5);
@@ -169,15 +198,15 @@ bush1.position.set(0.8, 0.2, 2.2);
 
 const bush2 = new THREE.Mesh(bushGeometry, bushMaterial);
 bush2.scale.set(0.25, 0.25, 0.25);
-bush2.position.set(1.4, 0.1, 2.1);
+bush2.position.set(1.4, 0.2, 2.1);
 
 const bush3 = new THREE.Mesh(bushGeometry, bushMaterial);
 bush3.scale.set(0.4, 0.4, 0.4);
-bush3.position.set(-0.8, 0.1, 2.2);
+bush3.position.set(-0.8, 0.2, 2.2);
 
 const bush4 = new THREE.Mesh(bushGeometry, bushMaterial);
 bush4.scale.set(0.15, 0.15, 0.15);
-bush4.position.set(-1, 0.05, 2.6);
+bush4.position.set(-1, 0.2, 2.6);
 
 house.add(bush1, bush2, bush3, bush4);
 
@@ -212,7 +241,7 @@ directionalLight.position.set(5, 10, 7.5);
 directionalLight.castShadow = false;
 scene.add(directionalLight);
 
-const ambientLight = new THREE.AmbientLight(0x404040, 1); // Soft ambient light
+const ambientLight = new THREE.AmbientLight(0x404040, 7); // Soft ambient light
 scene.add(ambientLight);
 
 // Create a camera
