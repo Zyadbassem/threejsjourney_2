@@ -113,6 +113,22 @@ bushesDiffTexture.wrapS = THREE.RepeatWrapping;
 bushesARMTexture.wrapS = THREE.RepeatWrapping;
 bushesNormalTexture.wrapS = THREE.RepeatWrapping;
 
+/**
+ * GRAVES TEXTURES
+ */
+const gravesDiffTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/grave/plastered_stone_wall_1k/plastered_stone_wall_diff_1k.jpg"
+);
+const gravesARMTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/grave/plastered_stone_wall_1k/plastered_stone_wall_arm_1k.jpg"
+);
+const gravesNormalTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/grave/plastered_stone_wall_1k/plastered_stone_wall_nor_gl_1k.jpg"
+);
+gravesDiffTextures.colorSpace = THREE.SRGBColorSpace;
+gravesDiffTextures.repeat.set(0.3, 0.4);
+gravesARMTextures.repeat.set(0.3, 0.4);
+gravesNormalTextures.repeat.set(0.3, 0.4);
 // create meshs
 
 // Floor
@@ -217,7 +233,13 @@ const graves = new THREE.Group();
 scene.add(graves);
 
 const gravesGeometry = new THREE.BoxGeometry(0.6, 0.8, 0.2);
-const gravesMaterial = new THREE.MeshStandardMaterial();
+const gravesMaterial = new THREE.MeshStandardMaterial({
+  map: gravesDiffTextures,
+  aoMap: gravesARMTextures,
+  metalnessMap: gravesARMTextures,
+  roughnessMap: gravesARMTextures,
+  normalMap: gravesNormalTextures,
+});
 
 for (let i = 0; i < 40; i++) {
   const grave = new THREE.Mesh(gravesGeometry, gravesMaterial);

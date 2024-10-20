@@ -390,3 +390,28 @@ const bushMaterial = new THREE.MeshStandardMaterial({
   color: "#ccffcc",
 });
 ```
+
+### Graves Textures
+
+```js
+const gravesDiffTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/grave/plastered_stone_wall_1k/plastered_stone_wall_diff_1k.jpg"
+);
+const gravesARMTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/grave/plastered_stone_wall_1k/plastered_stone_wall_arm_1k.jpg"
+);
+const gravesNormalTextures = textureLoader.load(
+  "./textures/16-haunted-house-resources/grave/plastered_stone_wall_1k/plastered_stone_wall_nor_gl_1k.jpg"
+);
+gravesDiffTextures.colorSpace = THREE.SRGBColorSpace;
+gravesDiffTextures.repeat.set(0.3, 0.4);
+gravesARMTextures.repeat.set(0.3, 0.4);
+gravesNormalTextures.repeat.set(0.3, 0.4);
+const gravesMaterial = new THREE.MeshStandardMaterial({
+  map: gravesDiffTextures,
+  aoMap: gravesARMTextures,
+  metalnessMap: gravesARMTextures,
+  roughnessMap: gravesARMTextures,
+  normalMap: gravesNormalTextures,
+});
+```
