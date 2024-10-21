@@ -215,7 +215,7 @@ house.add(roof);
 
 // door
 const door = new THREE.Mesh(
-  new THREE.PlaneGeometry(2.2, 2.2),
+  new THREE.PlaneGeometry(2.2, 2.2, 100, 100),
   new THREE.MeshStandardMaterial({
     map: doorDiffTexture,
     alphaMap: doorAlphaTexture,
@@ -225,11 +225,11 @@ const door = new THREE.Mesh(
     metalnessMap: doorMetalnessTexture,
     displacementMap: doorHeightTexture,
     normalMap: doornormalTexture,
-    displacementScale: 0.5,
-    displacementBias: 0.04,
+    displacementScale: 0.1,
+    displacementBias: -0.04,
   })
 );
-door.position.z = 2.0001;
+door.position.z = 2.01;
 door.position.y = 1.1;
 house.add(door);
 
@@ -294,12 +294,16 @@ for (let i = 0; i < 40; i++) {
  * LIGHTS
  */
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
-directionalLight.position.set(5, 10, 7.5);
+const pointLight = new THREE.PointLight("#ff7d46", 3);
+pointLight.position.set(0, 2, 2.5);
+house.add(pointLight);
+
+const directionalLight = new THREE.DirectionalLight("#86cdff", 1);
+directionalLight.position.set(5, 10, -7.5);
 directionalLight.castShadow = false;
 scene.add(directionalLight);
 
-const ambientLight = new THREE.AmbientLight(0x404040, 7); // Soft ambient light
+const ambientLight = new THREE.AmbientLight("#86cdff", 0.275); // Soft ambient light
 scene.add(ambientLight);
 
 // Create a camera

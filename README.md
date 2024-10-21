@@ -464,3 +464,25 @@ const door = new THREE.Mesh(
 ```
 
 voi la this was the last texture, take a break and come back
+
+### LIGHTS
+
+we already have an ambient light and a directional light now we gotta change thier color to something that looks like a moon light and we will add another light to light the front of our house
+
+```js
+/**
+ * LIGHTS
+ */
+
+const pointLight = new THREE.PointLight("#ff7d46", 3);
+pointLight.position.set(0, 2, 2.5);
+house.add(pointLight);
+
+const directionalLight = new THREE.DirectionalLight("#86cdff", 1);
+directionalLight.position.set(5, 10, -7.5);
+directionalLight.castShadow = false;
+scene.add(directionalLight);
+
+const ambientLight = new THREE.AmbientLight("#86cdff", 0.275); // Soft ambient light
+scene.add(ambientLight);
+```
