@@ -486,3 +486,42 @@ scene.add(directionalLight);
 const ambientLight = new THREE.AmbientLight("#86cdff", 0.275); // Soft ambient light
 scene.add(ambientLight);
 ```
+
+### Ghosts
+
+now we want to add some ghosts that walk on a circle we will not use real ghosts model instead we will use lights
+
+```js
+// Ghosts
+const ghost1 = new THREE.PointLight("red", 9);
+ghost1.position.set(0, 0.3, 0);
+
+const ghost2 = new THREE.PointLight("blue", 9);
+ghost2.position.set(0, 0.3, 0);
+
+const ghost3 = new THREE.PointLight("yellow", 9);
+ghost2.position.set(0, 0.3, 0);
+scene.add(ghost1, ghost2, ghost3);
+const loob = () => {
+  const elapsedTime = clock.getElapsedTime();
+
+  // ghosts
+  const angle = elapsedTime * 0.7;
+
+  ghost1.position.x = 5 * Math.sin(angle);
+  ghost1.position.z = 5 * Math.cos(angle);
+  ghost1.position.y = Math.sin(angle);
+
+  ghost2.position.x = 3 * Math.sin(angle * 5);
+  ghost2.position.z = 3 * Math.cos(angle) * Math.sin(angle * 2.38);
+  ghost2.position.y = Math.sin(angle);
+
+  ghost3.position.x = 7 * Math.sin(angle * 2);
+  ghost3.position.z = 7 * Math.cos(angle) * Math.sin(angle * 2.38);
+  ghost3.position.y = Math.sin(angle);
+  renderer.render(scene, camera);
+  window.requestAnimationFrame(loob);
+};
+```
+
+this will add lights that moves everywhere like a ghost
