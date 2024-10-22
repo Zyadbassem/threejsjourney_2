@@ -604,3 +604,7 @@ scene.fog = new THREE.FogExp2("#04343f", 0.15);
 ```
 
 with this we finished our project we only need it more obtimized
+
+### obtimizition
+
+change you textures to .webp instead of .jpg
