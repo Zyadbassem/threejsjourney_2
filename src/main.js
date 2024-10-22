@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
-import { sin, TubeGeometry } from "three/webgpu";
+import { Sky } from "three/addons/objects/Sky.js";
 // Get the canvas
 const canvas = document.querySelector(".webgl");
 
@@ -300,12 +300,9 @@ pointLight.position.set(0, 2, 2.5);
 house.add(pointLight);
 
 const directionalLight = new THREE.DirectionalLight("#86cdff", 2);
-directionalLight.position.set(-3, 10, -7.5);
-const directionalLightHelper = new THREE.DirectionalLightHelper(
-  directionalLight
-);
+directionalLight.position.set(6, 5, -6);
 directionalLight.castShadow = false;
-scene.add(directionalLight, directionalLightHelper);
+scene.add(directionalLight);
 
 const ambientLight = new THREE.AmbientLight("#86cdff", 0.275); // Soft ambient light
 scene.add(ambientLight);
@@ -393,6 +390,18 @@ ghost2.shadow.camera.far = 10;
 ghost3.shadow.mapSize.width = 256;
 ghost3.shadow.mapSize.height = 256;
 ghost3.shadow.camera.far = 10;
+
+/*
+ * SKY
+ **/
+const sky = new Sky();
+scene.add(sky);
+sky.material.uniforms["turbidity"].value = 10;
+sky.material.uniforms["rayleigh"].value = 3;
+sky.material.uniforms["mieCoefficient"].value = 0.1;
+sky.material.uniforms["mieDirectionalG"].value = 0.95;
+sky.material.uniforms["sunPosition"].value.set(0.3, -0.038, -0.95);
+sky.scale.set(100, 100, 100);
 
 renderer.setSize(sizes.width, sizes.height);
 

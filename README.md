@@ -572,3 +572,24 @@ ghost3.shadow.mapSize.width = 256;
 ghost3.shadow.mapSize.height = 256;
 ghost3.shadow.camera.far = 10;
 ```
+
+### Sky
+
+now lets add a background to make the scene more realistic, we will use a three.js background thats being provided in the three folder don't bother yourself with this part of code cause we will learn about it later lesson
+
+```js
+import { Sky } from "three/addons/objects/Sky.js";
+/*
+ * SKY
+ **/
+const sky = new Sky();
+scene.add(sky);
+sky.material.uniforms["turbidity"].value = 10;
+sky.material.uniforms["rayleigh"].value = 3;
+sky.material.uniforms["mieCoefficient"].value = 0.1;
+sky.material.uniforms["mieDirectionalG"].value = 0.95;
+sky.material.uniforms["sunPosition"].value.set(0.3, -0.038, -0.95);
+sky.scale.set(100, 100, 100);
+```
+
+now you can notice that we have a beatiful sky
