@@ -391,6 +391,8 @@ ghost3.shadow.mapSize.width = 256;
 ghost3.shadow.mapSize.height = 256;
 ghost3.shadow.camera.far = 10;
 
+// fog
+scene.fog = new THREE.FogExp2("#04343f", 0.15);
 /*
  * SKY
  **/

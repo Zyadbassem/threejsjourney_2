@@ -593,3 +593,14 @@ sky.scale.set(100, 100, 100);
 ```
 
 now you can notice that we have a beatiful sky
+
+### Fog
+
+we will add fog to our scene so it's scarier
+
+```js
+// fog
+scene.fog = new THREE.FogExp2("#04343f", 0.15);
+```
+
+with this we finished our project we only need it more obtimized
