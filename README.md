@@ -525,3 +525,50 @@ const loob = () => {
 ```
 
 this will add lights that moves everywhere like a ghost
+
+### Shadows
+
+to make our scene look more realistic we will enable shadows
+
+```js
+/*
+ ** Shadows
+ */
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+directionalLight.castShadow = true;
+ghost1.castShadow = true;
+ghost2.castShadow = true;
+ghost3.castShadow = true;
+walls.castShadow = true;
+walls.receiveShadow = true;
+roof.castShadow = true;
+floor.receiveShadow = true;
+for (const grave of graves.children) {
+  grave.castShadow = true;
+}
+
+// mapping
+directionalLight.shadow.mapSize.width = 256;
+directionalLight.shadow.mapSize.height = 256;
+directionalLight.shadow.camera.top = 8;
+directionalLight.shadow.camera.right = 8;
+directionalLight.shadow.camera.bottom = -8;
+directionalLight.shadow.camera.left = -8;
+directionalLight.shadow.camera.near = 1;
+directionalLight.shadow.camera.far = 20;
+
+// shadows
+ghost1.shadow.mapSize.width = 256;
+ghost1.shadow.mapSize.height = 256;
+ghost1.shadow.camera.far = 10;
+
+ghost2.shadow.mapSize.width = 256;
+ghost2.shadow.mapSize.height = 256;
+ghost2.shadow.camera.far = 10;
+
+ghost3.shadow.mapSize.width = 256;
+ghost3.shadow.mapSize.height = 256;
+ghost3.shadow.camera.far = 10;
+```
